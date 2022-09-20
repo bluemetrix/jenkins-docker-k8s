@@ -1,2 +1,1 @@
-# jenkins-docker-k8s
-ci/cd learning
+# jenkins-k8s-ci-cd
