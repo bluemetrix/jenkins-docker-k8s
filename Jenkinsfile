@@ -23,7 +23,7 @@ pipeline {
                             sh  "chmod  +x  changeTag.sh"
                             sh  "./changeTag.sh  ${DOCKER_TAG}"
                             sshagent(['eks-machine']){
-                                sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml  devops@10.0.37.55:/home/ansadmin/"
+                                sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml  ansadmin@10.0.37.55:/home/ansadmin/"
                               script{
                                       try{
                                             sh "ssh  ansadmin@10.0.37.55 kubectl apply -f ."
