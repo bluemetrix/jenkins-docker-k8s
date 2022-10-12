@@ -18,19 +18,19 @@ pipeline {
                                  }
                            }
              }
-             stage('Deploy to k8s'){
+             stage('Deploy to eks'){
                     steps{
                             sh  "chmod  +x  changeTag.sh"
                             sh  "./changeTag.sh  ${DOCKER_TAG}"
-                            sshagent(['k8s-machine']){
-                                sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml  devops@10.0.39.89:/home/devops/"
-                         //     script{
-                         //             try{
-                         //                   sh "ssh  devops@10.0.39.89 kubectl apply -f ."
-                         //                 }catch(error){
-                         //                   sh "ssh  devops@10.0.39.89  kubectl create -f ."
-                         //                 }
-                         //     }
+                            sshagent(['eks-machine']){
+                                sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml  devops@10.0.37.55:/home/ansadmin/"
+                              script{
+                                      try{
+                                            sh "ssh  ansadmin@10.0.37.55 kubectl apply -f ."
+                                          }catch(error){
+                                            sh "ssh  ansadmin@10.0.37.55  kubectl create -f ."
+                                          }
+                              }
                             }
                     }
              }
@@ -41,5 +41,4 @@ def  getDockerTag() {
   def tag = sh  script: 'git rev-parse HEAD', returnStdout: true
   return  tag
 }
-
 
