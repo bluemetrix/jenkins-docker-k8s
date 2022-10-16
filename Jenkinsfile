@@ -22,13 +22,13 @@ pipeline {
                     steps{
                             sh  "chmod  +x  changeTag.sh"
                             sh  "./changeTag.sh  ${DOCKER_TAG}"
-                            sshagent(['eks-machine']){
-                                sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml  ansadmin@10.0.37.55:/home/ansadmin/"
+                            sshagent(['eks-machine2']){
+                                sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml  ansadmin@10.0.26.231:/home/ansadmin/"
                               script{
                                       try{
-                                            sh "ssh  ansadmin@10.0.37.55 kubectl apply -f ."
+                                            sh "ssh  ansadmin@10.0.26.231 kubectl apply -f ."
                                           }catch(error){
-                                            sh "ssh  ansadmin@10.0.37.55  kubectl create -f ."
+                                            sh "ssh  ansadmin@10.0.26.231  kubectl create -f ."
                                           }
                               }
                             }
